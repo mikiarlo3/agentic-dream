@@ -1,0 +1,27 @@
+{
+  "name": "agentic-dream",
+  "version": "0.1.0",
+  "description": "Dream — a memory system for agents. Drop-in Anthropic Messages API proxy with tiered compression, a knowledge graph, consolidation, and recall.",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "start": "node dist/server.js",
+    "build": "tsc",
+    "test": "tsx --test --no-warnings=ExperimentalWarning test/*.test.ts",
+    "eval": "tsx --no-warnings=ExperimentalWarning src/eval/cli.ts",
+    "smoke": "tsx --no-warnings=ExperimentalWarning scripts/smoke.ts"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.13.7",
+    "hono": "^4.6.14"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}

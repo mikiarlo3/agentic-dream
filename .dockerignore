@@ -1,0 +1,10 @@
+node_modules
+dist
+dream-store
+tmpdata
+.git
+.github
+test
+scripts
+*.md
+.env

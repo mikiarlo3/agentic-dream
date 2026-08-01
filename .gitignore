@@ -1,0 +1,7 @@
+node_modules/
+dist/
+dream-store/
+tmpdata/
+*.log
+.env
+.DS_Store
