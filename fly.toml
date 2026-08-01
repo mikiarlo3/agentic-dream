@@ -1,0 +1,42 @@
+# Fly.io config for Dream.
+#
+# IMPORTANT: run at most ONE machine. The store is SQLite + files on a local
+# volume; a second machine would see a different (or corrupted) memory.
+#
+# First-time setup (once, from any terminal with flyctl):
+#   fly apps create agentic-dream            # pick your own unique name
+#   fly volumes create dream_data --size 1 --region iad
+#   fly secrets set DREAM_ACCESS_TOKEN=<choose-a-strong-token>
+#   fly deploy
+app = "agentic-dream"
+primary_region = "iad"
+
+[build]
+
+[env]
+  PORT = "8082"
+  DREAM_STORE_DIR = "/data/dream-store"
+
+[mounts]
+  source = "dream_data"
+  destination = "/data"
+
+[http_service]
+  internal_port = 8082
+  force_https = true
+  # Keep the machine alive: the consolidation scheduler and the in-memory
+  # keyring live in-process. Auto-stop would silently disable dreaming.
+  auto_stop_machines = "off"
+  auto_start_machines = true
+  min_machines_running = 1
+
+  [[http_service.checks]]
+    grace_period = "10s"
+    interval = "30s"
+    method = "GET"
+    path = "/healthz"
+    timeout = "5s"
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "512mb"

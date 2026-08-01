@@ -1,0 +1,19 @@
+# One-click deploy to Render (no terminal needed):
+# https://render.com/deploy?repo=https://github.com/mikiarlo3/agentic-dream
+services:
+  - type: web
+    name: agentic-dream
+    runtime: docker
+    plan: starter # persistent disks require a paid instance; free tier loses memory on restart
+    healthCheckPath: /healthz
+    disk:
+      name: dream-data
+      mountPath: /data
+      sizeGB: 1
+    envVars:
+      - key: DREAM_STORE_DIR
+        value: /data/dream-store
+      - key: PORT
+        value: "8082"
+      - key: DREAM_ACCESS_TOKEN
+        generateValue: true # Render creates a strong token; find it under Environment

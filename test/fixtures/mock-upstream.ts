@@ -104,9 +104,9 @@ export class MockUpstream {
     });
   }
 
-  start(): Promise<number> {
+  start(port = 0): Promise<number> {
     return new Promise((resolve) => {
-      this.server.listen(0, '127.0.0.1', () => {
+      this.server.listen(port, '127.0.0.1', () => {
         this.port = (this.server.address() as { port: number }).port;
         resolve(this.port);
       });
