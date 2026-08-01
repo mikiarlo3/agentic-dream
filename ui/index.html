@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dream — memory gateway</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌙</text></svg>" />
+</head>
+<body>
+  <div id="app">
+    <aside id="sidebar">
+      <div class="brand">
+        <span class="brand-moon">🌙</span>
+        <div>
+          <h1>Dream</h1>
+          <p class="tagline">memory for agents</p>
+        </div>
+      </div>
+      <nav id="nav">
+        <a href="#/stats">Overview</a>
+        <a href="#/conversations">Conversations</a>
+        <a href="#/graph">Graph</a>
+        <a href="#/recall">Recall</a>
+        <a href="#/eval">Eval curves</a>
+        <a href="#/skills">Skills</a>
+        <a href="#/requests">Request log</a>
+        <a href="#/playground">Playground</a>
+      </nav>
+      <div id="auth-status"></div>
+    </aside>
+    <main id="view" class="viz-root"></main>
+  </div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

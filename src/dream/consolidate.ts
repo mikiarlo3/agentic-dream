@@ -10,6 +10,7 @@ import { runDecay } from './decay.js';
 import { runPromotion } from './skills.js';
 import { regenerateIndex } from '../graph/indexer.js';
 import { turnsToText } from '../window/assemble.js';
+import { saliencePress } from '../press/salience.js';
 
 export interface ConsolidationResult {
   ns: string;
@@ -39,12 +40,13 @@ export async function consolidate(deps: ConsolidateDeps, ns: string): Promise<Co
   if (newTurns.length > 0) {
     const text = turnsToText(newTurns);
 
-    // Register the episode itself.
+    // Register the episode itself. Summarize from the most salient lines,
+    // not the raw head (which is usually log noise).
     const episode = graph.upsert({
       ns,
       kind: 'episode',
       data: {
-        summary: text.slice(0, 200).replace(/\n/g, ' '),
+        summary: saliencePress(text, 0.1).slice(0, 200).replace(/\n/g, ' · '),
         transcript_ref: `${ns}:${meta.consolidatedUpTo}-${allTurns.length}`,
         outcome: 'completed',
         tokens_spent: Math.ceil(text.length / 4),
