@@ -3,13 +3,21 @@
 # IMPORTANT: run at most ONE machine. The store is SQLite + files on a local
 # volume; a second machine would see a different (or corrupted) memory.
 #
-# First-time setup (once, from any terminal with flyctl):
-#   fly apps create agentic-dream            # pick your own unique name
-#   fly volumes create dream_data --size 1 --region iad
+# First-time setup (once, from any terminal with flyctl). Use `fly deploy`,
+# NOT `fly launch` — launch re-plans the config and proposes 2 machines for
+# high availability, which both breaks the single-machine requirement and can
+# exceed a new organization's machine limit.
+#
+#   fly apps create agentic-dream            # pick your own unique name, put it below
+#   fly volumes create dream_data --size 1 --region ams
 #   fly secrets set DREAM_ACCESS_TOKEN=<choose-a-strong-token>
-#   fly deploy
+#   fly deploy --ha=false
+#
+# If Fly says "requested machine count exceeds organization limit", add a
+# payment method first (fly.io dashboard → Billing) — new organizations
+# cannot place machines until one is on file.
 app = "agentic-dream"
-primary_region = "iad"
+primary_region = "ams"
 
 [build]
 

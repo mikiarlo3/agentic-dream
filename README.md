@@ -66,12 +66,15 @@ Useful flags: `--port`, `--store <dir>`, `--upstream <url>`, `--token <dashboard
 Dream ships ready to deploy with a persistent volume:
 
 ```bash
-# one-time setup
+# one-time setup — use `fly deploy`, not `fly launch` (launch re-plans the
+# config and proposes 2 machines; Dream must run exactly one)
 fly apps create <your-app-name>            # then put the name in fly.toml
-fly volumes create dream_data --size 1 --region iad
+fly volumes create dream_data --size 1 --region ams   # match primary_region in fly.toml
 fly secrets set DREAM_ACCESS_TOKEN=<choose-a-strong-token>
-fly deploy
+fly deploy --ha=false
 ```
+
+> Seeing `requested machine count exceeds organization limit`? Two causes, usually together: (1) you ran `fly launch`, which proposes a 2-machine HA setup — use `fly deploy --ha=false` instead; (2) a brand-new Fly organization can't place any machines until a payment method is added in the [billing dashboard](https://fly.io/dashboard).
 
 **Continuous deploys:** add a `FLY_API_TOKEN` secret to the GitHub repo (Settings → Secrets → Actions) and every push deploys automatically after tests and the eval regression gate pass. Without the secret, CI still runs tests and skips the deploy step cleanly.
 

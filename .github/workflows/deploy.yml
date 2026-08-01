@@ -40,6 +40,6 @@ jobs:
         if: steps.fly.outputs.have_token == 'true'
       - name: Deploy to Fly.io
         if: steps.fly.outputs.have_token == 'true'
-        run: flyctl deploy --remote-only
+        run: flyctl deploy --remote-only --ha=false
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
