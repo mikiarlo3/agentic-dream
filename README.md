@@ -22,6 +22,14 @@ npm run demo
 
 Then open **http://localhost:8082/ui/** — a demo conversation has already been proxied through a built-in fake model, so you can explore pressed blocks, the memory index, the knowledge graph, and the dashboard with real data in it.
 
+## Install with Claude Code (easiest)
+
+The repo ships a Claude Code skill. Clone it, open Claude Code inside, and just say what you want:
+
+> **install dream** · *put this online* · *connect my app to dream* · *my fly deploy failed*
+
+Claude runs the setup for you — local runs, cloud deploys (with the sharp edges pre-blunted), wiring your codebase to the gateway, and troubleshooting. Works for non-technical users too: it explains each step in plain language as it goes. You can also invoke it directly with `/install-dream`.
+
 ## Run it for real
 
 ```bash
