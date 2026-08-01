@@ -104,6 +104,19 @@ docker run -d -p 8082:8082 -v dream-data:/data \
 
 ---
 
+## Use it from Claude (claude.ai, desktop, mobile) — it's a connector
+
+Every Dream instance is also an **MCP connector**. Add it to Claude once, and Claude can search your memory, expand compressed history, and run consolidations from any chat — "what does Dream remember about the deploy decision?" just works.
+
+**Activate it (2 minutes):**
+1. Open your Dream dashboard → **Use with Claude** — it shows your personal connector URL (your access token embedded, so treat the URL like a password).
+2. In claude.ai (or the Claude desktop app): **Settings → Connectors → Add custom connector** → name it `Dream`, paste the URL, save. No OAuth setup needed.
+3. In a chat, enable Dream in the tools menu and ask away.
+
+Claude Code works too: `claude mcp add --transport http dream <your-connector-url>`.
+
+Connected Claude gets six tools — `dream_recall`, `dream_unpack`, `dream_conversations`, `dream_stats`, `dream_consolidate`, and `dream_guide` (a built-in guide Claude reads to explain your setup back to you). The connector *reads* memory; conversations get *into* memory through apps that use the gateway as their base URL.
+
 ## What you get
 
 | Component | What it does |

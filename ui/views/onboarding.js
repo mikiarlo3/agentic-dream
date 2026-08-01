@@ -152,6 +152,10 @@ export async function onboardingView(view) {
     step(3, 'Watch memory compression', statuses.press, pressBody),
     step(4, 'Let it dream — and ask it questions', statuses.dream, dreamBody),
     step(5, 'Connect your own app', statuses.connect, connectBody),
+    step(6, 'Give Claude access to this memory', 'optional', [
+      el('p', {}, 'This instance is also a ', el('strong', {}, 'Claude connector'), ': add it once in claude.ai (or the Claude apps) and Claude can search this memory, expand history, and run consolidations from any chat — just ask “what does Dream remember about…”.'),
+      el('p', {}, el('a', { href: '#/claude' }, 'Open “Use with Claude”'), ' for your personal connector URL and the two-minute activation steps.'),
+    ]),
     el('p', { class: 'muted', style: 'margin-top:4px' }, 'You can reopen this guide any time from "Get started" in the menu. The ', el('a', { href: '#/stats' }, 'Overview'), ' shows the live health of everything.'),
   );
 }

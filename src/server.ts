@@ -10,6 +10,7 @@ import { Graph } from './graph/graph.js';
 import { Keyring } from './gateway/keyring.js';
 import { handleMessages, type ProxyDeps } from './gateway/proxy.js';
 import { adminRoutes, bearerAuth } from './gateway/admin.js';
+import { mcpRoutes } from './gateway/mcp.js';
 import { Scheduler } from './dream/scheduler.js';
 import type { RequestLogEntry } from './types.js';
 
@@ -59,6 +60,9 @@ export function createServer(env: NodeJS.ProcessEnv = process.env): DreamServer 
 
   // The drop-in proxy surface.
   app.post('/v1/messages', (c) => handleMessages(c, proxyDeps));
+
+  // MCP connector for claude.ai / Claude desktop / Claude Code.
+  app.route('/', mcpRoutes({ cfg, store, graph, runConsolidation: (ns) => scheduler.enqueue(ns) }));
 
   // Admin + UI API.
   app.route(

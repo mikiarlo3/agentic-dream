@@ -49,6 +49,14 @@ node dist/cli.js --upstream http://localhost:4000
 
 The app still talks to Dream unchanged; model names in requests follow LiteLLM's naming. Hosted: run LiteLLM as a second service and set `UPSTREAM_BASE_URL` on Dream to its URL.
 
+## Connect Claude itself (claude.ai / desktop / mobile / Claude Code)
+
+Dream doubles as an MCP connector. The dashboard's "Use with Claude" page shows the personal connector URL (`<gateway-url>/mcp/<access-token>`, or `/mcp` when no token is set). Activation:
+- claude.ai / Claude apps: Settings → Connectors → Add custom connector → paste the URL. Then enable Dream in the chat tools menu.
+- Claude Code: `claude mcp add --transport http dream <connector-url>`
+
+Claude then has dream_recall / dream_unpack / dream_conversations / dream_stats / dream_consolidate / dream_guide. Remind the user: the URL embeds the token — share it like a password, and never add a token-less public instance as a connector.
+
 ## Verify
 
 Send one real request through the changed app and check:

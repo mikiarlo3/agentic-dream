@@ -9,6 +9,7 @@ import { skillsView } from './views/skills.js';
 import { requestsView } from './views/requests.js';
 import { playgroundView } from './views/playground.js';
 import { onboardingView } from './views/onboarding.js';
+import { claudeView } from './views/claude.js';
 
 const routes = {
   '': onboardingView,
@@ -23,6 +24,7 @@ const routes = {
   skills: skillsView,
   requests: requestsView,
   playground: playgroundView,
+  claude: claudeView,
 };
 
 const view = document.getElementById('view');
