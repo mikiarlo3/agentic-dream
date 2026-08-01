@@ -8,9 +8,11 @@ import { evalView } from './views/evalcurves.js';
 import { skillsView } from './views/skills.js';
 import { requestsView } from './views/requests.js';
 import { playgroundView } from './views/playground.js';
+import { onboardingView } from './views/onboarding.js';
 
 const routes = {
-  '': statsView,
+  '': onboardingView,
+  welcome: onboardingView,
   stats: statsView,
   conversations: conversationsView,
   conversation: conversationDetailView, // #/conversation/<ns>
@@ -53,10 +55,10 @@ async function render() {
   if (cleanup) { try { cleanup(); } catch {} cleanup = null; }
   const hash = location.hash.replace(/^#\/?/, '');
   const [name, ...args] = hash.split('/');
-  const fn = routes[name] || statsView;
+  const fn = routes[name] || onboardingView;
 
   document.querySelectorAll('#nav a').forEach((a) => {
-    a.classList.toggle('active', a.getAttribute('href') === `#/${name || 'stats'}` ||
+    a.classList.toggle('active', a.getAttribute('href') === `#/${name || 'welcome'}` ||
       (name === 'conversation' && a.getAttribute('href') === '#/conversations') ||
       (name === 'block' && a.getAttribute('href') === '#/conversations'));
   });

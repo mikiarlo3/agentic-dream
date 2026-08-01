@@ -39,6 +39,24 @@ export function createServer(env: NodeJS.ProcessEnv = process.env): DreamServer 
 
   const app = new Hono();
 
+  // Never index: this service fronts private conversations. Belt and braces —
+  // a response header on everything plus a deny-all robots.txt that also
+  // names the major AI crawlers (some honor UA-specific rules more reliably).
+  app.use('*', async (c, next) => {
+    await next();
+    c.header('x-robots-tag', 'noindex, nofollow, noarchive, nosnippet');
+  });
+  app.get('/robots.txt', (c) =>
+    c.text(
+      [
+        'User-agent: *',
+        'Disallow: /',
+        '',
+        ...['GPTBot', 'ChatGPT-User', 'OAI-SearchBot', 'ClaudeBot', 'Claude-Web', 'anthropic-ai', 'Google-Extended', 'Applebot-Extended', 'CCBot', 'PerplexityBot', 'Bytespider', 'meta-externalagent'].flatMap((ua) => [`User-agent: ${ua}`, 'Disallow: /', '']),
+      ].join('\n'),
+    ),
+  );
+
   // The drop-in proxy surface.
   app.post('/v1/messages', (c) => handleMessages(c, proxyDeps));
 
